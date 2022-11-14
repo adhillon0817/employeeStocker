@@ -1,0 +1,22 @@
+{
+  "name": "employeestocker",
+  "version": "1.0.0",
+  "author": "Avleen Kaur Dhillon",
+  "description": "Employee Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adhillon0817/employeeStocker.git"
+  },
+  "keywords": [
+    "[]"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adhillon0817/employeeStocker/issues"
+  },
+  "homepage": "https://github.com/adhillon0817/employeeStocker#readme"
+}

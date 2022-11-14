@@ -18,8 +18,7 @@
 
 // Create a new department
 
-//Prompt the user for the "name" of the de
-partment
+//Prompt the user for the "name" of the department
 
         // THEN run the query
         // INSERT INTO department (name)
