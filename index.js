@@ -2,6 +2,7 @@ const express= ('express');
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const { start } = require('repl');
+const { allowedNodeEnvironmentFlags } = require('process');
 
 
 const db = mysql.createConnection(
@@ -25,6 +26,38 @@ function beginPrompt() {
                         choices: [ 'View all employees', 'Add employee', 'Update employee role', 'View all roles', 'Add role', 'View all departments', 'Add department'],    
                 },
         ])
+
+        .then(response => {
+                const {category} = response;
+                console.log(category);
+                switch (choice) {
+                        case 'View all employees':
+                                viewAllEmployees();
+                                break;
+                        case 'Add employee':
+                                addEmployee();
+                                break;
+                        case 'Update employee role':
+                                updateEmployeeRole();
+                                break;
+                        case 'View all roles':
+                                viewAllRoles();
+                                break;
+                        case 'Add role':
+                                addRole();
+                                break;
+                        case 'View all departments':
+                                viewAllDepartments();
+                                break;
+                        case 'Add department':
+                                addDepartment();
+                                break;
+                        default:
+                                break;
+                }
+        });
+
+        
 
 
 }
