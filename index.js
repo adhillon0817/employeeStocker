@@ -1,11 +1,8 @@
 const express= ('express');
 const mysql = require('mysql2');
+const inquirer = require('inquirer');
+const { start } = require('repl');
 
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-app.use(express.urlencoded({ extended: false}));
-app.use(express.json());
 
 const db = mysql.createConnection(
         {
@@ -13,12 +10,24 @@ const db = mysql.createConnection(
                 user: 'root',
                 password: '',
                 database: 'listofemployees_db'
-        }
+        },
+        console.log(`Connected to the listofemployees_db.`)
 )
 
+db.query = utils.promisify(db.query)
+beginPrompt();
+function beginPrompt() {
+        inquirer.prompt([
+                {
+                        type: 'list',
+                        name: 'category',
+                        message: "What would you like to do?",
+                        choices: [ 'View all employees', 'Add employee', 'Update employee role', 'View all roles', 'Add role', 'View all departments', 'Add department'],    
+                },
+        ])
 
 
-
+}
 
 
 
