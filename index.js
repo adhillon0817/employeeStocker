@@ -56,10 +56,12 @@ function beginPrompt() {
                                 break;
                 }
         });
+}
 
-        
-
-
+const viewAllEmployees = async () => {
+        const employee = await db.query("SELECT * FROM employee");
+        console.table(employee);
+        beginPrompt();
 }
 
 
