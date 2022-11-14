@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS listofemployee_db;
-CREATE DATABASE listofemployee_db;
-USE listofemployee_db;
+DROP DATABASE IF EXISTS listofemployees_db;
+CREATE DATABASE listofemployees_dbs;
+USE listofemployees_db;
 
 CREATE TABLE department (
     id: INT NOT NULL,
