@@ -31,6 +31,9 @@ function beginPrompt() {
                 const {category} = response;
                 console.log(category);
                 switch (choice) {
+                        case 'View all departments':
+                                viewAllDepartments();
+                                break;
                         case 'View all employees':
                                 viewAllEmployees();
                                 break;
@@ -46,9 +49,6 @@ function beginPrompt() {
                         case 'Add role':
                                 addRole();
                                 break;
-                        case 'View all departments':
-                                viewAllDepartments();
-                                break;
                         case 'Add department':
                                 addDepartment();
                                 break;
@@ -58,11 +58,32 @@ function beginPrompt() {
         });
 }
 
-const viewAllEmployees = async () => {
-        const employee = await db.query("SELECT * FROM employee");
-        console.table(employee);
+const viewAllDepartments = async () => {
+        const department = await db.query("SELECT * FROM department");
+        console.table(department);
         beginPrompt();
 }
+
+
+const viewAllEmployees = async () => {
+        const worker = await db.query(`SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department,
+                                               role.salary, CONCAT(e.first_name,' ',e.last_name) AS manager 
+                                               FROM employee
+                                               JOIN role ON employee.role_id = role.id
+                                               JOIN department ON department.id = role.department_id
+                                               LEFT JOIN employee ON employee.manager_id = e.id`);
+
+        console.table(worker);
+        beginPrompt();
+}
+
+
+
+
+
+
+
+
 
 
 
