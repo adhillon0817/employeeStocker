@@ -70,7 +70,6 @@ const viewAllDepartments = async () => {
 }
 
 
-
 //VIEW ALL EMPLOYEES
 const viewAllEmployees = async () => {
         const worker = await db.query(`SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department,
@@ -90,10 +89,24 @@ const viewAllRoles = async () => {
         const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
                                                 FROM role
                                                 JOIN department ON role.department_id=department.id`);
+        console.table(roles);
+        beginPrompt();
 }
 
 
+//ADD DEPARTMENT
+const addDepartment = async () => {
+        const deparmentChoice = await inquirer.prompt([
+                {
+                        type: "input",
+                        name: "departchoice",
+                        message: "What department would you like to add?", 
+                },
+        ]);
 
+
+
+//ADD departchoice input into query
 
 
 
