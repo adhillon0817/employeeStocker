@@ -84,6 +84,20 @@ const viewAllEmployees = async () => {
 }
 
 
+// ADD EMPLOYEES
+
+
+
+
+
+
+//UPDATE EMPLOYEE ROLE
+
+
+
+
+
+
 //VIEW ALL ROLES
 const viewAllRoles = async () => {
         const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
@@ -94,9 +108,31 @@ const viewAllRoles = async () => {
 }
 
 
+// ADD ROLE
+const addRole = async () =>{
+        const department = await db.query("SELECT * FROM department");
+        const userSelection = department.map(department => ({
+                value: department.id,
+                name: department.name
+        }));
+//questionare for addding a role
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //ADD DEPARTMENT
 const addDepartment = async () => {
-        const deparmentChoice = await inquirer.prompt([
+        const departmentChoice = await inquirer.prompt([
                 {
                         type: "input",
                         name: "departchoice",
@@ -104,15 +140,15 @@ const addDepartment = async () => {
                 },
         ]);
 
-
-
 //ADD departchoice input into query
+await db.query(
+        "INSERT INTO department (name) VALUES(?)", [departmentChoice.departChoice]);
 
-
-
-
-
-
+//console log message.
+        console.log( departmentChoice.departChoice + "is added to the database!" );
+        beginPrompt();
+        console.log("Done");
+}
 
 
 
