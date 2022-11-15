@@ -23,7 +23,7 @@ function beginPrompt() {
                         type: 'list',
                         name: 'category',
                         message: "What would you like to do?",
-                        choices: [ 'View all employees', 'Add employee', 'Update employee role', 'View all roles', 'Add role', 'View all departments', 'Add department'],    
+                        choices: [ 'View all employees', 'Add employee', 'Update employee role', 'View all roles', 'Add role', 'View all departments', 'Add department', 'Update employee', 'No action'],    
                 },
         ])
 
@@ -52,12 +52,17 @@ function beginPrompt() {
                         case 'Add department':
                                 addDepartment();
                                 break;
+                        case 'Update employee':
+                                updateEmployee();
+                                break;
                         default:
                                 break;
                 }
         });
 }
 
+
+//VIEW ALL DEPARTMENTS
 const viewAllDepartments = async () => {
         const department = await db.query("SELECT * FROM department");
         console.table(department);
@@ -65,6 +70,8 @@ const viewAllDepartments = async () => {
 }
 
 
+
+//VIEW ALL EMPLOYEES
 const viewAllEmployees = async () => {
         const worker = await db.query(`SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department,
                                                role.salary, CONCAT(e.first_name,' ',e.last_name) AS manager 
@@ -78,7 +85,12 @@ const viewAllEmployees = async () => {
 }
 
 
-
+//VIEW ALL ROLES
+const viewAllRoles = async () => {
+        const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
+                                                FROM role
+                                                JOIN department ON role.department_id=department.id`);
+}
 
 
 
