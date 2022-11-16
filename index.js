@@ -85,10 +85,43 @@ const viewAllEmployees = async () => {
 
 
 // ADD EMPLOYEES
+const addEmployee = async () => {
+        const newEmployee = await db.query(`SELECT id, title 
+                                        FROM role`);
 
+const employee = await db.query(`SELECT id, first_name, last_name 
+                                 FROM employee`);
 
+// EMPLOYEE ADDITION QUESTIONARE
+const reply = await inquirer.prompt([
+        {
+                type: 'input',
+                name: 'first_name',
+                message: 'What is the first name of the employee?'
+        },
+     
+        {
+                type: 'input',
+                name: 'last_name',
+                message: 'What is the last name of the employee?'
+        },
 
+        {
+                type: 'list',
+                name: 'employeeRole',
+                message:'What is the role the employee is assigned to?',
+                choices: ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer', 'Customer Service']
+        },
 
+        {
+                type: 'list',
+                name: 'employeeManager',
+                message:'Who is their assigned manager?',
+                choices: ['John Doe', 'Mike Chan', 'Ashley Rodriguez', 'Kevin Tupik', 'Kunal Singh', 'Malia Brown']
+        },        
+]);
+
+}
 
 
 //UPDATE EMPLOYEE ROLE
@@ -112,12 +145,11 @@ const viewAllRoles = async () => {
 const addRole = async () =>{
         const department = await db.query("SELECT * FROM department");
 
-        };
 //questionare for addding a role
         const response = await inquirer.prompt([
                 {
                         type: 'input',
-                        name: 'name',
+                        name: 'title',
                         message: 'What is the name of the role?'
                 },
              
@@ -133,19 +165,13 @@ const addRole = async () =>{
                         message:'Which department does the role belong to?',
                         choices: ['Engineering', 'Finance', 'Legal', 'Sales', 'Service']
                 },
-        ])
+        ]);
+        await db.query(
+                `INSERT INTO role(title,salary,department_id) VALUES(?,?,?)`,
+                [answers.title, answers.salary, answers.category] );
+                beginPrompt();
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 //ADD DEPARTMENT
