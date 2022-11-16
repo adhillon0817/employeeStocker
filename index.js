@@ -120,7 +120,11 @@ const reply = await inquirer.prompt([
                 choices: ['John Doe', 'Mike Chan', 'Ashley Rodriguez', 'Kevin Tupik', 'Kunal Singh', 'Malia Brown']
         },        
 ]);
-
+        await db.query(
+                `INSERT INTO employee( first_name, last_name, role_id, manager_id) VALUES(?,?,?,?)`,
+                [reply.first_name, reply.last_name, reply.employeeRole, reply.employeeManager]
+        );
+        console.log(first_name + last_name + "is added!");
 }
 
 
