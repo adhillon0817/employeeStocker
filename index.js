@@ -17,6 +17,7 @@ const db = mysql.createConnection(
 
 db.query = utils.promisify(db.query)
 beginPrompt();
+
 function beginPrompt() {
         inquirer.prompt([
                 {
@@ -125,6 +126,7 @@ const reply = await inquirer.prompt([
                 [reply.first_name, reply.last_name, reply.employeeRole, reply.employeeManager]
         );
         console.log(first_name + last_name + "is added!");
+        beginPrompt();
 }
 
 
@@ -149,6 +151,7 @@ const updateEmployeeRole = async () => {
 
         ]);
         console.log("Employee is updated!")
+        beginPrompt();
 
 
 }
