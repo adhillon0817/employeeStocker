@@ -129,10 +129,29 @@ const reply = await inquirer.prompt([
 
 
 //UPDATE EMPLOYEE ROLE
+const updateEmployeeRole = async () => {
+        const employeeUpdate = await db.query(`SELECT * FROM employee`);
+        const update = await inquirer.prompt([
+                {
+                        type: "list",
+                        name: "updateName",
+                        message: "Which employee's role do you want to update?",
+                        choices: ['John Doe', 'Mike Chan', 'Ashley Rodriguez', 'Kevin Tupik', 'Kunal Singh', 'Malia Brown']
+                },
+
+                {
+                        type: "list",
+                        name: "updateRole",
+                        message: "What role do you want to assign to the selected user?",
+                        choices: ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer', 'Customer Service']
+                },
+             
+
+        ]);
+        console.log("Employee is updated!")
 
 
-
-
+}
 
 
 //VIEW ALL ROLES
@@ -149,7 +168,7 @@ const viewAllRoles = async () => {
 const addRole = async () =>{
         const department = await db.query("SELECT * FROM department");
 
-//questionare for addding a role
+//questionare for adding a role
         const response = await inquirer.prompt([
                 {
                         type: 'input',
