@@ -1,8 +1,8 @@
-const express= ('express');
+// const express= ('express');
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const util = require('util');
-const { start } = require('repl');
+// const util = require('util');
+// const { start } = require('repl');
 // const { allowedNodeEnvironmentFlags } = require('process');
 
 
@@ -10,7 +10,7 @@ const db = mysql.createConnection(
         {
                 host: 'localhost',
                 user: 'root',
-                password: '',
+                password: 'password',
                 database: 'listofemployees_db'
         },
         console.log(`Connected to the listofemployees_db.`)
