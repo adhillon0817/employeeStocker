@@ -14,10 +14,29 @@ const db = mysql.createConnection(
                 database: 'listofemployees_db'
         },
         console.log(`Connected to the listofemployees_db.`)
-)
+);
 
-db.query = util.promisify(db.query)
-beginPrompt();
+// db.query = util.promisify(db.query)
+
+
+viewAllDepartments = () => {
+        database.query('SELECT * FROM department',(err, data) => {
+                if (err) {
+                        console.log(err)
+                }else {
+                        console.table(data)
+                        beginPrompt();
+                }
+        })
+}
+//VIEW ALL DEPARTMENTS
+// const viewAllDepartments = async () => {
+//         const department = await db.query("SELECT * FROM department");
+//         console.table(department);
+//         beginPrompt();
+// }
+
+
 
 function beginPrompt() {
         inquirer.prompt([
@@ -61,12 +80,7 @@ function beginPrompt() {
 }
 
 
-//VIEW ALL DEPARTMENTS
-const viewAllDepartments = async () => {
-        const department = await db.query("SELECT * FROM department");
-        console.table(department);
-        beginPrompt();
-}
+
 
 //VIEW ALL ROLES
 const viewAllRoles = async () => {
