@@ -1,4 +1,4 @@
-USE employees;
+USE listofemployees_db;
 
 INSERT INTO department (name)
 VALUES 
