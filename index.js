@@ -32,7 +32,7 @@ function beginPrompt() {
         .then(response => {
                 const {category} = response;
                 console.log(category);
-                switch (choice) {
+                switch (category) {
                         case 'View all departments':
                                 viewAllDepartments();
                                 break;
@@ -53,9 +53,6 @@ function beginPrompt() {
                                 break;
                         case 'Add department':
                                 addDepartment();
-                                break;
-                        case 'Update employee':
-                                updateEmployee();
                                 break;
                         default:
                                 break;
