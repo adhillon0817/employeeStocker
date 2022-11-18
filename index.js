@@ -68,6 +68,14 @@ const viewAllDepartments = async () => {
         beginPrompt();
 }
 
+//VIEW ALL ROLES
+const viewAllRoles = async () => {
+        const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
+                                                FROM role
+                                                JOIN department ON role.department_id=department.id`);
+        console.table(roles);
+        beginPrompt();
+}
 
 //VIEW ALL EMPLOYEES
 const viewAllEmployees = async () => {
@@ -80,6 +88,60 @@ const viewAllEmployees = async () => {
 
         console.table(worker);
         beginPrompt();
+}
+
+//ADD DEPARTMENT
+const addDepartment = async () => {
+        const departmentChoice = await inquirer.prompt([
+                {
+                        type: "input",
+                        name: "departchoice",
+                        message: "What department would you like to add?", 
+                },
+        ]);
+
+//ADD departchoice input into query
+await db.query(
+        "INSERT INTO department (name) VALUES(?)", [departmentChoice.departChoice]);
+
+//console log message.
+        console.log( departmentChoice.departChoice + "is added to the database!" );
+        beginPrompt();
+        console.log("Done");
+}
+
+
+
+// ADD ROLE
+const addRole = async () =>{
+        const department = await db.query("SELECT * FROM department");
+
+//questionare for adding a role
+        const response = await inquirer.prompt([
+                {
+                        type: 'input',
+                        name: 'title',
+                        message: 'What is the name of the role?'
+                },
+             
+                {
+                        type: 'input',
+                        name: 'salary',
+                        message: 'What is the salary of the role?'
+                },
+
+                {
+                        type: 'list',
+                        name: 'category',
+                        message:'Which department does the role belong to?',
+                        choices: ['Engineering', 'Finance', 'Legal', 'Sales', 'Service']
+                },
+        ]);
+        await db.query(
+                `INSERT INTO role(title,salary,department_id) VALUES(?,?,?)`,
+                [answers.title, answers.salary, answers.category] );
+                beginPrompt();
+
 }
 
 
@@ -152,68 +214,4 @@ const updateEmployeeRole = async () => {
         beginPrompt();
 
 
-}
-
-
-//VIEW ALL ROLES
-const viewAllRoles = async () => {
-        const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
-                                                FROM role
-                                                JOIN department ON role.department_id=department.id`);
-        console.table(roles);
-        beginPrompt();
-}
-
-
-// ADD ROLE
-const addRole = async () =>{
-        const department = await db.query("SELECT * FROM department");
-
-//questionare for adding a role
-        const response = await inquirer.prompt([
-                {
-                        type: 'input',
-                        name: 'title',
-                        message: 'What is the name of the role?'
-                },
-             
-                {
-                        type: 'input',
-                        name: 'salary',
-                        message: 'What is the salary of the role?'
-                },
-
-                {
-                        type: 'list',
-                        name: 'category',
-                        message:'Which department does the role belong to?',
-                        choices: ['Engineering', 'Finance', 'Legal', 'Sales', 'Service']
-                },
-        ]);
-        await db.query(
-                `INSERT INTO role(title,salary,department_id) VALUES(?,?,?)`,
-                [answers.title, answers.salary, answers.category] );
-                beginPrompt();
-
-}
-
-
-//ADD DEPARTMENT
-const addDepartment = async () => {
-        const departmentChoice = await inquirer.prompt([
-                {
-                        type: "input",
-                        name: "departchoice",
-                        message: "What department would you like to add?", 
-                },
-        ]);
-
-//ADD departchoice input into query
-await db.query(
-        "INSERT INTO department (name) VALUES(?)", [departmentChoice.departChoice]);
-
-//console log message.
-        console.log( departmentChoice.departChoice + "is added to the database!" );
-        beginPrompt();
-        console.log("Done");
 }
