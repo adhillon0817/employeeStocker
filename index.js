@@ -1,7 +1,7 @@
 const express= ('express');
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const utils = require('utils');
+const util = require('util');
 const { start } = require('repl');
 // const { allowedNodeEnvironmentFlags } = require('process');
 
@@ -16,7 +16,7 @@ const db = mysql.createConnection(
         console.log(`Connected to the listofemployees_db.`)
 )
 
-db.query = utils.promisify(db.query)
+db.query = util.promisify(db.query)
 beginPrompt();
 
 function beginPrompt() {
@@ -149,6 +149,7 @@ const addRole = async () =>{
 const addEmployee = async () => {
         const newEmployee = await db.query(`SELECT id, title 
                                         FROM role`);
+        
 
 const employee = await db.query(`SELECT id, first_name, last_name 
                                  FROM employee`);
