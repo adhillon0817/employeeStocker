@@ -22,7 +22,7 @@ const database = mysql.createConnection(
 viewAllDepartments = () => {
   database.query("SELECT * FROM department", (err, data) => {
     if (err) {
-      console.log(err);
+      console.error(err);
     } else {
       console.table(data);
       beginPrompt();
@@ -36,7 +36,7 @@ viewAllDepartments = () => {
 
 viewAllRoles = () => {
   database.query(
-    "SELECT roles.id, roles.title AS, position, roles.salary AS Pay, department.name_department AS Depart FROM roles JOIN department ON roles.department_id = departments.id;",
+    'SELECT roles.id, roles.title AS position, roles.salary AS Pay, department.name_department AS Depart FROM roles JOIN department ON roles.department_id = department.id;',
     (err, data) => {
       if (err) {
         console.error(err);
@@ -130,7 +130,7 @@ addRole = () => {
         const newRole = answers.newRole;
         const roleDepartment = answers.roleDepartment;
         const newRolePay = answers.newRolePay;
-        database.query(`INSERT INTO roles (title, deparment_id, salary) VALUES (?, ?, ?);`, [newRole, roleDepartment, newRolePay], (err, result) => {
+        database.query(`INSERT INTO roles (title, department_id, salary) VALUES (?, ?, ?);`, [newRole, roleDepartment, newRolePay], (err, result) => {
                 if(err) {
                         console.error(err)
                 }else{
@@ -332,3 +332,5 @@ beginPrompt = () => {
         }
 })
 };
+
+beginPrompt();
