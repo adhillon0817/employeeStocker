@@ -267,7 +267,7 @@ addEmployee = () => {
                                 if (err) {
                                         console.error(err)
                                 } else {
-                                        console.lof (`${employeeFirstName} ${employeeLastName} added!`)
+                                        console.log (`${employeeFirstName} ${employeeLastName} added!`)
                                         beginPrompt();
                                 }
                         })
@@ -347,26 +347,105 @@ addEmployee = () => {
 //         beginPrompt();
 //       };
 
-// function beginPrompt() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "list",
-//         name: "category",
-//         message: "What would you like to do?",
-//         choices: [
-//           "View all employees",
-//           "Add employee",
-//           "Update employee role",
-//           "View all roles",
-//           "Add role",
-//           "View all departments",
-//           "Add department",
-//           "Update employee",
-//           "No action",
-//         ],
-//       },
-//     ])
+
+
+
+
+
+//UPDATE EMPLOYEE ROLE
+updateEmployeeRole = () => {
+        database.query('SELECT * FROM employee', (err,data) => {
+                if (err) {
+                        console.error(err)
+                } else {
+                        const empArray = data.map(function(employee) {
+                        return {name: employee.first_name + ` ` + employee.last_name, value: employee.id}
+                })
+
+        database.query('SELECT * FROM roles', (err,data) => {
+                if (err) {
+                        console.error(err)
+                } else {
+                        const rolesArray = data.map(function(roles) {
+                        return {name: roles.title, value: roles.id}
+                        })
+        inquirer.prompt([
+                
+        ])
+                }
+        })
+                }
+        })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// const updateEmployeeRole = async () => {
+//         const employeeUpdate = await db.query(`SELECT * FROM employee`);
+//         const update = await inquirer.prompt([
+//           {
+//             type: "list",
+//             name: "updateName",
+//             message: "Which employee's role do you want to update?",
+//             choices: [
+//               "John Doe",
+//               "Mike Chan",
+//               "Ashley Rodriguez",
+//               "Kevin Tupik",
+//               "Kunal Singh",
+//               "Malia Brown",
+//             ],
+//           },
+      
+//           {
+//             type: "list",
+//             name: "updateRole",
+//             message: "What role do you want to assign to the selected user?",
+//             choices: [
+//               "Sales Lead",
+//               "Salesperson",
+//               "Lead Engineer",
+//               "Account Manager",
+//               "Accountant",
+//               "Legal Team Lead",
+//               "Lawyer",
+//               "Customer Service",
+//             ],
+//           },
+//         ]);
+//         console.log("Employee is updated!");
+//         beginPrompt();
+//       };
+      
+function beginPrompt() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "category",
+        message: "What would you like to do?",
+        choices: [
+          "View all employees",
+          "Add employee",
+          "Update employee role",
+          "View all roles",
+          "Add role",
+          "View all departments",
+          "Add department",
+          "Update employee",
+          "No action",
+        ],
+      },
+    ])
 
     .then((response) => {
       const { category } = response;
@@ -398,43 +477,3 @@ addEmployee = () => {
       }
     });
 }
-
-
-
-//UPDATE EMPLOYEE ROLE
-const updateEmployeeRole = async () => {
-  const employeeUpdate = await db.query(`SELECT * FROM employee`);
-  const update = await inquirer.prompt([
-    {
-      type: "list",
-      name: "updateName",
-      message: "Which employee's role do you want to update?",
-      choices: [
-        "John Doe",
-        "Mike Chan",
-        "Ashley Rodriguez",
-        "Kevin Tupik",
-        "Kunal Singh",
-        "Malia Brown",
-      ],
-    },
-
-    {
-      type: "list",
-      name: "updateRole",
-      message: "What role do you want to assign to the selected user?",
-      choices: [
-        "Sales Lead",
-        "Salesperson",
-        "Lead Engineer",
-        "Account Manager",
-        "Accountant",
-        "Legal Team Lead",
-        "Lawyer",
-        "Customer Service",
-      ],
-    },
-  ]);
-  console.log("Employee is updated!");
-  beginPrompt();
-};
