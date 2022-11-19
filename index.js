@@ -53,7 +53,7 @@ viewAllRoles = () => {
 //VIEW ALL EMPLOYEES
 viewAllEmployees = () => {
   database.query(
-    'SELECT e.id, CONCAT (e.first_name," ", e.last_name) AS Employee, roles.title AS position, department.name_department AS Depart, roles.salary AS Pay, CONCAT (e.first_name," ", e.last_name) AS manager FROM employee AS e JOIN roles ON e.role_id = roles.id JOIN department ON roles.deparment_id LEFT JOIN employee m ON m.id = e.manager_id;',
+    'SELECT e.id, CONCAT (e.first_name," ", e.last_name) AS Employee, roles.title AS position, department.name_department AS Depart, roles.salary AS Pay, CONCAT (e.first_name," ", e.last_name) AS manager FROM employee AS e JOIN roles ON e.role_id = roles.id JOIN department ON roles.department_id LEFT JOIN employee m ON m.id = e.manager_id;',
     (err, data) => {
       if (err) {
         console.error(err);

@@ -21,5 +21,7 @@ In order to run this you must first run the basic command to connect to MySQL an
 The following video shows an example of the application being used from the command line:
 
 
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
+[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](assets\Entry.png) (assets\Prompts.png) (assets\view all employees.png)]
+
+https://drive.google.com/file/d/1ELIn_4rUkgffPJihcVg073YdFY5jQhGV/view 
 
