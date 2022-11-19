@@ -232,13 +232,52 @@ addEmployee = () => {
                         const empArray = data.map(function(employee) {
                         return {name: employee.first_name + ` ` + employee.last_name, value: employee.id}
                 })
-                
+                inquirer.prompt([
+                        {
+                                type: "input",
+                                message: "Enter employee's first name.",
+                                name: "employeeFirstName",
+                        },
+
+                        {
+                                type: "input",
+                                message: "Enter employee's last name.",
+                                name: "employeeLastName",
+                        },
+
+                        {
+                                type: "list",
+                                message: "Enter employee's role.",
+                                choices: "rolesArray",
+                                name: "employeeNewRole",
+                        },
+                        {
+                                type: "list",
+                                message: "Enter employee's manager.",
+                                choices: "empArray",
+                                name: "employeeNewManager",
+                        },
+                ])
+                .then((answers) => {
+                        const employeeFirstName = answers.employeeFirstName;
+                        const employeeLastName = answers.employeeLastName;
+                        const employeeNewRole = answers.employeeNewRole;
+                        const employeeNewManager = answers.employeeNewManager;
+                        database.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);', [employeeFirstName, employeeLastName, employeeNewRole, employeeNewManager], (err,result) => {
+                                if (err) {
+                                        console.error(err)
+                                } else {
+                                        console.lof (`${employeeFirstName} ${employeeLastName} added!`)
+                                        beginPrompt();
+                                }
+                        })
+                })
                 
                 }
-        })
+        });
         
                 }
-        })
+        });
 }
 
 
