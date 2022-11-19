@@ -163,10 +163,23 @@ addRole = () => {
 
       ])
 
-      
+      .then((answers) => {
+        const newRole = answers.newRole;
+        const departArray = answers.deparyArray;
+        const newRolePay = answers.newRolePay;
+        database.query(`INSERT INTO roles (title, deparment_id, salary) VALUES (?, ?, ?);`, [newRole, departArray, newRolePay], (err, result) => {
+                if(err) {
+                        console.error(err)
+                }else{
+                        console.log(`${newRole} added!`);
+                        beginPrompt();
+                }
+        }) 
+      })
     }
   }
-  )
+  );
+
 }
 
 // const addRole = async () => {
@@ -201,26 +214,98 @@ addRole = () => {
 //         beginPrompt();
 //       };
 
-function beginPrompt() {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "category",
-        message: "What would you like to do?",
-        choices: [
-          "View all employees",
-          "Add employee",
-          "Update employee role",
-          "View all roles",
-          "Add role",
-          "View all departments",
-          "Add department",
-          "Update employee",
-          "No action",
-        ],
-      },
-    ])
+
+
+// ADD EMPLOYEES
+
+
+
+
+
+// const addEmployee = async () => {
+//         const newEmployee = await db.query(`SELECT id, title 
+//                                               FROM role`);
+      
+//         const employee = await db.query(`SELECT id, first_name, last_name 
+//                                        FROM employee`);
+      
+//         // EMPLOYEE ADDITION QUESTIONARE
+//         const reply = await inquirer.prompt([
+//           {
+//             type: "input",
+//             name: "first_name",
+//             message: "What is the first name of the employee?",
+//           },
+      
+//           {
+//             type: "input",
+//             name: "last_name",
+//             message: "What is the last name of the employee?",
+//           },
+      
+//           {
+//             type: "list",
+//             name: "employeeRole",
+//             message: "What is the role the employee is assigned to?",
+//             choices: [
+//               "Sales Lead",
+//               "Salesperson",
+//               "Lead Engineer",
+//               "Account Manager",
+//               "Accountant",
+//               "Legal Team Lead",
+//               "Lawyer",
+//               "Customer Service",
+//             ],
+//           },
+      
+//           {
+//             type: "list",
+//             name: "employeeManager",
+//             message: "Who is their assigned manager?",
+//             choices: [
+//               "John Doe",
+//               "Mike Chan",
+//               "Ashley Rodriguez",
+//               "Kevin Tupik",
+//               "Kunal Singh",
+//               "Malia Brown",
+//             ],
+//           },
+//         ]);
+//         await db.query(
+//           `INSERT INTO employee( first_name, last_name, role_id, manager_id) VALUES(?,?,?,?)`,
+//           [
+//             reply.first_name,
+//             reply.last_name,
+//             reply.employeeRole,
+//             reply.employeeManager,
+//           ]
+//         );
+//         console.log(first_name + last_name + "is added!");
+//         beginPrompt();
+//       };
+
+// function beginPrompt() {
+//   inquirer
+//     .prompt([
+//       {
+//         type: "list",
+//         name: "category",
+//         message: "What would you like to do?",
+//         choices: [
+//           "View all employees",
+//           "Add employee",
+//           "Update employee role",
+//           "View all roles",
+//           "Add role",
+//           "View all departments",
+//           "Add department",
+//           "Update employee",
+//           "No action",
+//         ],
+//       },
+//     ])
 
     .then((response) => {
       const { category } = response;
@@ -253,70 +338,7 @@ function beginPrompt() {
     });
 }
 
-// ADD EMPLOYEES
-const addEmployee = async () => {
-  const newEmployee = await db.query(`SELECT id, title 
-                                        FROM role`);
 
-  const employee = await db.query(`SELECT id, first_name, last_name 
-                                 FROM employee`);
-
-  // EMPLOYEE ADDITION QUESTIONARE
-  const reply = await inquirer.prompt([
-    {
-      type: "input",
-      name: "first_name",
-      message: "What is the first name of the employee?",
-    },
-
-    {
-      type: "input",
-      name: "last_name",
-      message: "What is the last name of the employee?",
-    },
-
-    {
-      type: "list",
-      name: "employeeRole",
-      message: "What is the role the employee is assigned to?",
-      choices: [
-        "Sales Lead",
-        "Salesperson",
-        "Lead Engineer",
-        "Account Manager",
-        "Accountant",
-        "Legal Team Lead",
-        "Lawyer",
-        "Customer Service",
-      ],
-    },
-
-    {
-      type: "list",
-      name: "employeeManager",
-      message: "Who is their assigned manager?",
-      choices: [
-        "John Doe",
-        "Mike Chan",
-        "Ashley Rodriguez",
-        "Kevin Tupik",
-        "Kunal Singh",
-        "Malia Brown",
-      ],
-    },
-  ]);
-  await db.query(
-    `INSERT INTO employee( first_name, last_name, role_id, manager_id) VALUES(?,?,?,?)`,
-    [
-      reply.first_name,
-      reply.last_name,
-      reply.employeeRole,
-      reply.employeeManager,
-    ]
-  );
-  console.log(first_name + last_name + "is added!");
-  beginPrompt();
-};
 
 //UPDATE EMPLOYEE ROLE
 const updateEmployeeRole = async () => {
