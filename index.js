@@ -224,7 +224,7 @@ addEmployee = () => {
                 }else{
                         const rolesArray = data.map(function(roles) {
                         return {name: roles.title, value: roles.id}
-                        })
+                })
         database.query('SELECT * FROM employee', (err,data) => {
                 if (err) {
                         console.error(err)
@@ -248,13 +248,13 @@ addEmployee = () => {
                         {
                                 type: "list",
                                 message: "Enter employee's role.",
-                                choices: "rolesArray",
+                                choices: rolesArray,
                                 name: "employeeNewRole",
                         },
                         {
                                 type: "list",
                                 message: "Enter employee's manager.",
-                                choices: "empArray",
+                                choices: empArray,
                                 name: "employeeNewManager",
                         },
                 ])
@@ -370,12 +370,36 @@ updateEmployeeRole = () => {
                         return {name: roles.title, value: roles.id}
                         })
         inquirer.prompt([
-                
+                {
+                        type: "list",
+                        message: "Select employee to update.",
+                        choices: empArray, 
+                        name: "employeeUpdate"
+                },
+                {
+                        type:"list",
+                        message:"Enter new role.",
+                        choices: rolesArray,
+                        name: "employeeRoleUpdate",
+                },
         ])
-                }
+
+        .then((answers) => {
+                const employeeUpdate = answers.employeeUpdate;
+                const employeeRoleUpdate = answers.updateEmployeeRole;
+                database.query('UPDATE employee SET role_id = ? WHERE id = ?;', [employeeUpdate, employeeRoleUpdate], (err,result) => {
+                        if (err) {
+                                console.error
+                        }else {
+                                console.log('Updated!')
+                                beginPrompt();
+                        }
+                })
         })
                 }
-        })
+        });
+                }
+        });
 }
 
 
