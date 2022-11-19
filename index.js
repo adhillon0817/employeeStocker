@@ -37,6 +37,26 @@ viewAllDepartments = () => {
 // }
 
 
+viewAllRoles = () => {
+        database.query('SELECT roles.id, roles.title AS, roles.salary AS Pay, departments.name_department AS Depart FROM roles JOIN department ON roles.department_id = departments.id;'(err, data) => {
+                if (err) {
+                        console.log(err)
+                } else {
+                        console.table(data)
+                        beginPrompt();
+                }
+        })
+
+}
+
+//VIEW ALL ROLES
+// const viewAllRoles = async () => {
+//         const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
+//                                                 FROM role
+//                                                 JOIN department ON role.department_id=department.id`);
+//         console.table(roles);
+//         beginPrompt();
+// }
 
 function beginPrompt() {
         inquirer.prompt([
@@ -82,14 +102,7 @@ function beginPrompt() {
 
 
 
-//VIEW ALL ROLES
-const viewAllRoles = async () => {
-        const roles = await db.query (`SELECT role.id, role.title, department.name AS department, role.salary,
-                                                FROM role
-                                                JOIN department ON role.department_id=department.id`);
-        console.table(roles);
-        beginPrompt();
-}
+
 
 //VIEW ALL EMPLOYEES
 const viewAllEmployees = async () => {
