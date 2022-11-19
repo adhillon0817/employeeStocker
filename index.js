@@ -89,7 +89,8 @@ viewAllEmployees = () => {
 
 //ADD DEPARTMENT
 addDepartment = () => {
-  inquirer.prompt([
+  inquirer
+    .prompt([
       {
         type: "input",
         message: "What department would you like to add?",
@@ -98,7 +99,10 @@ addDepartment = () => {
     ])
     .then((answers) => {
       const newDepartment = answers.departchoice;
-      database.query("INSERT INTO department (name_department) VALUES (?);", newDepartment,(err, data) => {
+      database.query(
+        "INSERT INTO department (name_department) VALUES (?);",
+        newDepartment,
+        (err, data) => {
           if (err) {
             console.error(err);
           } else {
@@ -106,9 +110,9 @@ addDepartment = () => {
             beginPrompt();
           }
         }
-      )
-    })
-}
+      );
+    });
+};
 
 // const addDepartment = async () => {
 //         const departmentChoice = await inquirer.prompt([
@@ -130,17 +134,44 @@ addDepartment = () => {
 //     };
 
 
-
-
-
-
 // ADD ROLE
 
+addRole = () => {
+  database.query("SELECT * FROM department", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const departArray = data.map(function(department){
+        return {name: department.name_department, value: department.id}
+      })
+      inquirer.prompt([
+        {
+                type: "input",
+                message: "What is the role title?",
+                name: "newRole",
+        },
+        {
+                type: "list",
+                message: "Which department does this go under?",
+                name: "departArray",
+        },
+        {
+                type: "number",
+                message: "What is the set pay?",
+                name: "newRolePay",
+        },
 
+      ])
+
+      
+    }
+  }
+  )
+}
 
 // const addRole = async () => {
 //         const department = await db.query("SELECT * FROM department");
-      
+
 //         //questionare for adding a role
 //         const response = await inquirer.prompt([
 //           {
@@ -148,13 +179,13 @@ addDepartment = () => {
 //             name: "title",
 //             message: "What is the name of the role?",
 //           },
-      
+
 //           {
 //             type: "input",
 //             name: "salary",
 //             message: "What is the salary of the role?",
 //           },
-      
+
 //           {
 //             type: "list",
 //             name: "category",
@@ -169,10 +200,6 @@ addDepartment = () => {
 //         ]);
 //         beginPrompt();
 //       };
-
-
-
-
 
 function beginPrompt() {
   inquirer
@@ -225,8 +252,6 @@ function beginPrompt() {
       }
     });
 }
-
-
 
 // ADD EMPLOYEES
 const addEmployee = async () => {
