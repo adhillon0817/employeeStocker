@@ -217,7 +217,29 @@ addRole = () => {
 
 
 // ADD EMPLOYEES
-
+addEmployee = () => {
+        database.query('SELECT * FROM roles', (err,data) => {
+                if (err) {
+                        console.error(err)
+                }else{
+                        const rolesArray = data.map(function(roles) {
+                        return {name: roles.title, value: roles.id}
+                        })
+        database.query('SELECT * FROM employee', (err,data) => {
+                if (err) {
+                        console.error(err)
+                } else {
+                        const empArray = data.map(function(employee) {
+                        return {name: employee.first_name + ` ` + employee.last_name, value: employee.id}
+                })
+                
+                
+                }
+        })
+        
+                }
+        })
+}
 
 
 
